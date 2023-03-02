@@ -1,9 +1,11 @@
 <script setup lang="ts">
-
+const { userInfo } = useUserInfo()
 </script>
 
 <template>
-  ME
+  <pre>
+    {{ userInfo }}
+  </pre>
 </template>
 
 <style scoped>

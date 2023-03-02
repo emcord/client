@@ -26,6 +26,7 @@ export default defineConfig({
       imports: [
         'vue',
         'vue-router',
+        '@vueuse/core',
         {
           '@vueuse/core': [
             ['useFetch', 'useCoreFetch'],

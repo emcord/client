@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import TheAside from './TheAside.vue'
+import ServerList from './ServerList.vue'
 </script>
 
 <template>
   <div min-h-screen flex flex-row>
-    <div w-auto>
-      <TheAside />
+    <div w-72px bgc-1e1f22>
+      <ServerList />
     </div>
-    <div flex-1>
+    <div flex-1 bgc-313338>
       <RouterView />
     </div>
   </div>

@@ -4,6 +4,10 @@ import TheContainer from '~/layouts/TheContainer.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
+    path: '/',
+    redirect: '/channels/@me',
+  },
+  {
     path: '/login',
     component: () => import('~/pages/auth/Login.vue'),
   },
@@ -15,7 +19,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/channels',
     component: TheContainer,
     children: [{
-      path: ':server/:channel',
+      path: ':serverId/:channelId',
       component: () => import('~/pages/channels/index.vue'),
     }, {
       path: '@me',
@@ -27,4 +31,13 @@ export const routes: RouteRecordRaw[] = [
 export const router = createRouter({
   routes,
   history: createWebHashHistory(),
+})
+
+const { hasToken } = useToken()
+
+router.beforeEach((to, _from, next) => {
+  if (['/login', '/register'].includes(to.path) || hasToken.value)
+    next()
+  else
+    router.push('/login')
 })
