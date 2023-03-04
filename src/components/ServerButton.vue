@@ -4,8 +4,9 @@ import { useStatus } from '~/composables/useStatus'
 defineProps<{
   avator?: string
   active?: boolean
-  to: string
+  to?: string
   name: string
+  imgClass?: string
 }>()
 
 const router = useRouter()
@@ -19,7 +20,7 @@ const { ishover, set } = useStatus(['active', 'hover', 'new', 'none'], 'none')
     cursor-pointer
     @mouseenter="() => set('hover')"
     @mouseleave="() => set('none')"
-    @click="() => router.push(to)"
+    @click="() => to && router.push(to)"
   >
     <div
       class="status-bar"
@@ -29,6 +30,7 @@ const { ishover, set } = useStatus(['active', 'hover', 'new', 'none'], 'none')
     <img
       :src="avator"
       s-48px
+      :class="imgClass || ''"
       :style="{ borderRadius: `${(active || ishover) ? 15 : 50}px` }"
       transition-all
     >

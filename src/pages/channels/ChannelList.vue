@@ -3,6 +3,7 @@ import type { Server } from '~/types/models'
 
 const props = defineProps<{
   serverId: string | string[]
+  connected: boolean
 }>()
 
 const { data: server } = useFetch<Server>(() => `/api/server/${props.serverId}`).json()
@@ -19,16 +20,31 @@ const { data: channel } = useFetch(() => `/api/channel/${server.value?.channels?
         {{ server?.name }}
       </strong>
     </div>
-    <div cursor-pointer i-ic-baseline-keyboard-arrow-down s-25px />
+    <div
+      cursor-pointer
+      i-ic-baseline-keyboard-arrow-down
+      s-25px
+    />
   </header>
+  <div v-if="!connected">
+    未连接
+  </div>
   <div scroll-y>
-    <div h-30px flex items-center justify-around class="channel">
-      <div i-carbon-hashtag s-20px font-bold />
-      <div p-5>
-        <router-link :to="`/channels/${serverId}/${channel?._id}`" c-text-3>
-          {{ channel?.name }}
-        </router-link>
+    <div h-30px flex items-center justify-between class="channel">
+      <div flex items-center>
+        <img
+          src="https://api.iconify.design/prime:hashtag.svg?color=%23ffffff"
+          s-25px
+          font-bold
+          mr-10px
+        >
+        <div>
+          <router-link :to="`/channels/${serverId}/${channel?._id}`" c-text-3>
+            {{ channel?.name }}
+          </router-link>
+        </div>
       </div>
+      <div i-carbon-add />
     </div>
   </div>
 </template>

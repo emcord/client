@@ -4,7 +4,6 @@ import type { WSMessage } from '~/types/im'
 import { isOK } from '~/types/im'
 
 const { params } = toRefs(useRoute())
-
 const { token } = useToken()
 const { userInfo, userOverview } = useUserInfo()
 
@@ -43,7 +42,7 @@ function submit() {
 <template>
   <div flex h-full>
     <aside w-240px h-full bgc-2b2d30>
-      <ChannelList :server-id="params.serverId" />
+      <ChannelList :server-id="params.serverId" :connected="status === 'OPEN'" />
     </aside>
     <div flex-col>
       <div>
@@ -53,7 +52,6 @@ function submit() {
       <button btn @click="submit()">
         SEND
       </button>
-
       {{ status }}
       <div flex>
         <div wp-50>

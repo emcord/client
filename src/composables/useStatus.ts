@@ -7,10 +7,6 @@ export function useStatus<R extends string, T extends R[]>(
   const status = ref(initValue) as Ref<T[number]>
 
   const r: Record<Prefix<R, 'is'>, ComputedRef<boolean>> = {} as any
-  options.forEach(o => {
-    const key = `is${o}` as Prefix<R, 'is'>
-    r[key] = computed(() => o === status.value)
-  })
 
   return {
     status,
